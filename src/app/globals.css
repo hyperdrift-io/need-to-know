@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Custom styles */
+.news-card {
+  @apply bg-[#1A1A1A] rounded-lg p-4 transition-all duration-200 hover:shadow-md;
+}
+
+.premium-blur {
+  @apply filter blur-sm pointer-events-none;
+}
+
+.trending-badge {
+  @apply bg-[#8438FF] text-[#FFFFFF] text-xs px-2 py-1 rounded-full;
+}
+
+.impact-score {
+  @apply bg-gradient-to-r from-[#8438FF] to-purple-700 text-[#FFFFFF] font-bold rounded-full flex items-center justify-center;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-[#8438FF] text-[#FFFFFF] rounded-lg py-2 px-4 hover:bg-[#7530e3] transition-all;
+}
+
+.btn-secondary {
+  @apply bg-transparent border border-[#FFFFFF] text-[#FFFFFF] rounded-lg py-2 px-4 hover:bg-[#333333] transition-all;
+}
