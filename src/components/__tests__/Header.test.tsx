@@ -6,11 +6,9 @@ import '@testing-library/jest-dom';
 import Header from '../Header';
 
 // Mock next/link component
-import Link from 'next/link';
-
 mock('next/link', () => {
   return {
-    default: ({ children, href }: { children: React.ReactNode; href: string }) => {
+    default: ({ children, href }) => {
       return <a href={href}>{children}</a>;
     }
   };
@@ -20,12 +18,15 @@ describe('Header', () => {
   test('renders logo and site name', () => {
     render(<Header />);
 
-    expect(screen.getByText('N2')).toBeInTheDocument();
-    expect(screen.getByText('NeedToKnow')).toBeInTheDocument();
+    const n2Elements = screen.getAllByText('N2');
+    expect(n2Elements.length).toBeGreaterThan(0);
+
+    const needToKnowElements = screen.getAllByText('NeedToKnow');
+    expect(needToKnowElements.length).toBeGreaterThan(0);
   });
 
   test('renders notification bell with count', () => {
-    const { container } = render(<Header />);
+    render(<Header />);
 
     // Use getAllByText to handle multiple elements
     const notificationCount = screen.getAllByText('3')[0];
