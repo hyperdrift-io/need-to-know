@@ -1,0 +1,11 @@
+[test]
+preload = "./src/setup-tests.ts"
+
+# Test configuration
+timeout = 10_000       # 10 seconds timeout
+bail = true            # stop on first failure
+use-colors = true      # use colors in output
+
+# Test files pattern
+include-files = ["**/*.test.ts", "**/*.test.tsx"]
+exclude-files = ["**/node_modules/**", "**/.next/**"]

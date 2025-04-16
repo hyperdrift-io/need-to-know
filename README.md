@@ -20,6 +20,24 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Testing
+
+This project uses Bun's built-in test runner with React Testing Library for testing components and utilities.
+
+To run tests:
+
+```bash
+bun test
+```
+
+To run tests in watch mode:
+
+```bash
+bun test --watch
+```
+
+The test files follow a naming convention of `*.test.ts` or `*.test.tsx` and are located next to the files they test in `__tests__` directories.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
