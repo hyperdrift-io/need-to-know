@@ -1,8 +1,20 @@
 @import "tailwindcss";
 
+:root {
+  --color-primary: #8438FF;
+  --color-primary-hover: #7530e3;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A1A1A1;
+  --color-bg-card: #1A1A1A;
+  --color-bg-hover: #333333;
+  --border-radius-default: 0.5rem;
+  --border-radius-full: 9999px;
+  --transition-default: all 0.2s ease;
+}
+
 /* Custom styles */
 .news-card {
-  @apply bg-[#1A1A1A] rounded-lg p-4 transition-all duration-200 hover:shadow-md;
+  @apply bg-[var(--color-bg-card)] rounded-lg p-4 transition-all duration-200 hover:shadow-md;
 }
 
 .premium-blur {
@@ -10,18 +22,18 @@
 }
 
 .trending-badge {
-  @apply bg-[#8438FF] text-[#FFFFFF] text-xs px-2 py-1 rounded-full;
+  @apply bg-[var(--color-primary)] text-[var(--color-text-primary)] text-xs px-2 py-1 rounded-full;
 }
 
 .impact-score {
-  @apply bg-gradient-to-r from-[#8438FF] to-purple-700 text-[#FFFFFF] font-bold rounded-full flex items-center justify-center;
+  @apply bg-gradient-to-r from-[var(--color-primary)] to-purple-700 text-[var(--color-text-primary)] font-bold rounded-full flex items-center justify-center;
 }
 
 /* Button styles */
 .btn-primary {
-  @apply bg-[#8438FF] text-[#FFFFFF] rounded-lg py-2 px-4 hover:bg-[#7530e3] transition-all;
+  @apply bg-[var(--color-primary)] text-[var(--color-text-primary)] rounded-lg py-2 px-4 hover:bg-[var(--color-primary-hover)] transition-all;
 }
 
 .btn-secondary {
-  @apply bg-transparent border border-[#FFFFFF] text-[#FFFFFF] rounded-lg py-2 px-4 hover:bg-[#333333] transition-all;
+  @apply bg-transparent border border-[var(--color-text-primary)] text-[var(--color-text-primary)] rounded-lg py-2 px-4 hover:bg-[var(--color-bg-hover)] transition-all;
 }

@@ -43,7 +43,7 @@ export default function Home() {
       <main className="flex-1">
         <section className="mb-8">
           <h1 className="text-3xl font-bold mb-2">NeedToKnow</h1>
-          <p className="text-[#A1A1A1]">Start informed. Stay ahead.</p>
+          <p className="text-[var(--color-text-secondary)]">Start informed. Stay ahead.</p>
         </section>
 
         <TopicSelector
@@ -55,9 +55,9 @@ export default function Home() {
         <section className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold">Today&apos;s Essential Updates</h2>
-            <div className="text-xs text-[#A1A1A1]">
+            <div className="text-xs text-[var(--color-text-secondary)]">
               Last updated: {new Date().toLocaleTimeString()} •
-              <button className="ml-1 text-[#8438FF]">Refresh</button>
+              <button className="ml-1 text-[var(--color-primary)]">Refresh</button>
             </div>
           </div>
 
@@ -72,32 +72,32 @@ export default function Home() {
           ))}
 
           <div className="text-center mt-8">
-            <Button variant="outline" className="text-[#A1A1A1] border-neutral-800 hover:bg-[#1A1A1A] hover:text-[#FFFFFF]">
+            <Button variant="outline" className="text-[var(--color-text-secondary)] border-neutral-800 hover:bg-[var(--color-bg-card)] hover:text-[var(--color-text-primary)]">
               View More Updates
             </Button>
           </div>
         </section>
 
-        <section className="bg-[#1A1A1A] rounded-lg p-6 mb-8">
+        <section className="bg-[var(--color-bg-card)] rounded-lg p-6 mb-8">
           <h2 className="text-xl font-bold mb-4">
-            <span className="text-[#8438FF]">Pro</span> Features
+            <span className="text-[var(--color-primary)]">Pro</span> Features
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 border border-neutral-800 rounded-lg">
               <h3 className="font-bold mb-1">Unlimited Topics</h3>
-              <p className="text-sm text-[#A1A1A1]">Follow all the topics that matter to you</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Follow all the topics that matter to you</p>
             </div>
             <div className="p-4 border border-neutral-800 rounded-lg">
               <h3 className="font-bold mb-1">Impact Scoring</h3>
-              <p className="text-sm text-[#A1A1A1]">Understand the significance of each update</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Understand the significance of each update</p>
             </div>
             <div className="p-4 border border-neutral-800 rounded-lg">
               <h3 className="font-bold mb-1">Save & Export</h3>
-              <p className="text-sm text-[#A1A1A1]">Build your knowledge vault with useful insights</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Build your knowledge vault with useful insights</p>
             </div>
           </div>
           <div className="mt-4 text-center">
-            <Button className="bg-[#8438FF] text-[#FFFFFF] hover:bg-[#7530e3]">
+            <Button className="bg-[var(--color-primary)] text-[var(--color-text-primary)] hover:bg-[var(--color-primary-hover)]">
               Upgrade to Pro
             </Button>
           </div>
@@ -105,7 +105,7 @@ export default function Home() {
       </main>
 
       <button
-        className="fixed bottom-6 right-6 bg-[#1A1A1A] p-3 rounded-full shadow-lg hover:bg-[#333333] transition-colors"
+        className="fixed bottom-6 right-6 bg-[var(--color-bg-card)] p-3 rounded-full shadow-lg hover:bg-[var(--color-bg-hover)] transition-colors"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
         <FontAwesomeIcon icon={faArrowUp} />
