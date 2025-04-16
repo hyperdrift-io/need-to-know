@@ -4,15 +4,6 @@
 [test]
 preload = "./src/setup-tests.ts"
 
-# Test configuration
-timeout = 10000
-bail = true
-use-colors = true
-
-# Test files pattern
-include-files = ["**/*.test.ts", "**/*.test.tsx"]
-exclude-files = ["**/node_modules/**", "**/.next/**"]
-
 [coverage]
 istanbul = { reporter = ["html", "text", "lcov"], directory = "./coverage" }
 
