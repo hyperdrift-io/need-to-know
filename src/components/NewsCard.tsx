@@ -1,9 +1,9 @@
 import React from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/Card';
 import { Button } from './ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faShareNodes, faChartLine } from '@fortawesome/free-solid-svg-icons';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/DropdownMenu';
 
 export type NewsItem = {
   id: string;

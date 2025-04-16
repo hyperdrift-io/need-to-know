@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import TopicSelector from '../TopicSelector';
 
 // Mock the Select component behavior
-mock.module('./ui/select', () => {
+mock.module('./ui/Select', () => {
   return {
     Select: ({ children, value, onValueChange }) => (
       <div data-testid="select" onClick={() => onValueChange('ai')}>

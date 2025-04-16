@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Avatar, AvatarFallback } from './ui/avatar';
+import { Avatar, AvatarFallback } from './ui/Avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 

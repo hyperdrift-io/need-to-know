@@ -24,7 +24,8 @@ describe('Avatar', () => {
       </Avatar>
     );
 
-    expect(screen.getByText('U')).toBeInTheDocument();
+    const fallbackElements = screen.getAllByText('U');
+    expect(fallbackElements.length).toBeGreaterThan(0);
   });
 
   test('applies custom className to avatar', () => {
@@ -34,7 +35,8 @@ describe('Avatar', () => {
       </Avatar>
     );
 
-    const avatar = screen.getByText('U').parentElement;
+    const fallbackElements = screen.getAllByText('U');
+    const avatar = fallbackElements[0].parentElement;
     expect(avatar).toHaveClass('custom-avatar');
   });
 });

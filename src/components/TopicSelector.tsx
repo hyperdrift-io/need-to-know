@@ -1,6 +1,6 @@
 import React from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Button } from './ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/Select';
+import { Button } from './ui/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 

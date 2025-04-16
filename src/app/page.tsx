@@ -7,7 +7,7 @@ import TopicSelector from '@/components/TopicSelector';
 import NewsCard from '@/components/NewsCard';
 import { newsByTopic } from '@/data/mockNews';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 

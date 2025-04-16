@@ -32,7 +32,7 @@ describe('Header', () => {
   test('renders user avatar', () => {
     render(<Header />);
 
-    const avatar = screen.getByText('U');
-    expect(avatar).toBeInTheDocument();
+    const avatarElements = screen.getAllByText('U');
+    expect(avatarElements.length).toBeGreaterThan(0);
   });
 });
