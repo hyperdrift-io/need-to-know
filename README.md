@@ -36,6 +36,14 @@ To run tests in watch mode:
 bun test --watch
 ```
 
+To run tests with coverage:
+
+```bash
+bun test --coverage
+```
+
+The coverage report will be generated in the `coverage` directory. You can open `coverage/index.html` in your browser to view a detailed coverage report.
+
 The test files follow a naming convention of `*.test.ts` or `*.test.tsx` and are located next to the files they test in `__tests__` directories.
 
 ## Learn More

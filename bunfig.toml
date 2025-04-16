@@ -1,11 +1,25 @@
+# This is the configuration file for Bun.
+# For more information, see https://bun.sh/docs/runtime/bunfig
+
 [test]
 preload = "./src/setup-tests.ts"
 
 # Test configuration
-timeout = 10_000       # 10 seconds timeout
-bail = true            # stop on first failure
-use-colors = true      # use colors in output
+timeout = 10000
+bail = true
+use-colors = true
 
 # Test files pattern
 include-files = ["**/*.test.ts", "**/*.test.tsx"]
 exclude-files = ["**/node_modules/**", "**/.next/**"]
+
+[coverage]
+istanbul = { reporter = ["html", "text", "lcov"], directory = "./coverage" }
+
+[install]
+registry = "https://registry.npmjs.org/"
+exact = false
+
+[debug]
+# Enable debug logs for specific features
+dev = false

@@ -1,12 +1,16 @@
-import { describe, expect, test } from 'bun:test';
+import { describe, expect, test, mock } from 'bun:test';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from '../Header';
 
 // Mock next/link component
-jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
-    return <a href={href}>{children}</a>;
+import Link from 'next/link';
+
+mock.module('next/link', () => {
+  return {
+    default: ({ children, href }: { children: React.ReactNode; href: string }) => {
+      return <a href={href}>{children}</a>;
+    }
   };
 });
 
