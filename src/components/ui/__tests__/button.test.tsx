@@ -1,7 +1,9 @@
+/// <reference lib="dom" />
+
 import { describe, expect, test, spyOn } from 'bun:test';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Button, buttonVariants } from '../button';
+import { Button, buttonVariants } from '../Button';
 
 describe('Button', () => {
   test('renders button with default variant and size', () => {
@@ -37,14 +39,15 @@ describe('Button', () => {
   });
 
   test('triggers onClick handler when clicked', () => {
-    const onClickMock = spyOn({}, 'onClick');
+    const mockObj = { onClick: () => {} };
+    const spy = spyOn(mockObj, 'onClick');
 
-    render(<Button onClick={() => onClickMock()}>Clickable</Button>);
+    render(<Button onClick={() => mockObj.onClick()}>Clickable</Button>);
 
     const button = screen.getByRole('button', { name: 'Clickable' });
     fireEvent.click(button);
 
-    expect(onClickMock).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
   test('renders as a different element when asChild is true', () => {

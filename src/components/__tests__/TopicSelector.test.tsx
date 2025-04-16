@@ -1,26 +1,34 @@
+/// <reference lib="dom" />
+
 import { describe, expect, test, spyOn, mock } from 'bun:test';
-import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TopicSelector from '../TopicSelector';
 
 // Mock the Select component behavior
-mock.module('./ui/Select', () => {
+mock('@/components/ui/Select', () => {
   return {
-    Select: ({ children, value, onValueChange }) => (
-      <div data-testid="select" onClick={() => onValueChange('ai')}>
-        Selected: {value}
-        {children}
+    default: ({ options, onChange }) => (
+      <div data-testid="select-mock">
+        {options.map(option => (
+          <button
+            key={option.value}
+            data-value={option.value}
+            onClick={() => onChange(option.value)}
+          >
+            {option.label}
+          </button>
+        ))}
       </div>
-    ),
-    SelectContent: ({ children }) => <div data-testid="select-content">{children}</div>,
-    SelectItem: ({ children, value }) => (
-      <div data-testid={`select-item-${value}`}>{children}</div>
-    ),
-    SelectTrigger: ({ children }) => <div data-testid="select-trigger">{children}</div>,
-    SelectValue: ({ placeholder }) => <div data-testid="select-value">{placeholder}</div>,
+    )
   };
 });
+
+const mockTopics = [
+  { value: 'ai', label: 'AI' },
+  { value: 'tech', label: 'Tech' },
+  { value: 'business', label: 'Business' }
+];
 
 describe('TopicSelector', () => {
   test('renders the topic selector with the correct title', () => {
@@ -46,19 +54,20 @@ describe('TopicSelector', () => {
   });
 
   test('calls onTopicChange when a topic is selected', () => {
-    const onTopicChangeMock = spyOn({}, 'onTopicChange');
+    const mockObj = { onTopicChange: (topic) => {} };
+    const spy = spyOn(mockObj, 'onTopicChange');
 
     render(
       <TopicSelector
         selectedTopic="crypto"
-        onTopicChange={(topic) => onTopicChangeMock(topic)}
+        onTopicChange={(topic) => mockObj.onTopicChange(topic)}
       />
     );
 
     // Click the select to trigger change
     fireEvent.click(screen.getByTestId('select'));
 
-    expect(onTopicChangeMock).toHaveBeenCalledWith('ai');
+    expect(spy).toHaveBeenCalledWith('ai');
   });
 
   test('renders upgrade message for non-premium users', () => {
@@ -95,5 +104,29 @@ describe('TopicSelector', () => {
     );
 
     expect(screen.getByText('Search')).toBeInTheDocument();
+  });
+
+  test('renders all topics', () => {
+    render(<TopicSelector topics={mockTopics} onTopicChange={() => {}} />);
+
+    const selectElement = screen.getByTestId('select-mock');
+
+    expect(within(selectElement).getByText('AI')).toBeInTheDocument();
+    expect(within(selectElement).getByText('Tech')).toBeInTheDocument();
+    expect(within(selectElement).getByText('Business')).toBeInTheDocument();
+  });
+
+  test('calls onTopicChange when a topic is selected with the mock component', () => {
+    const mockObj = { onTopicChange: (topic) => {} };
+    const spy = spyOn(mockObj, 'onTopicChange');
+
+    render(<TopicSelector topics={mockTopics} onTopicChange={(topic) => mockObj.onTopicChange(topic)} />);
+
+    const selectElement = screen.getByTestId('select-mock');
+    const techButton = within(selectElement).getByText('Tech');
+
+    fireEvent.click(techButton);
+
+    expect(spy).toHaveBeenCalledWith('tech');
   });
 });

@@ -2,7 +2,7 @@
 # For more information, see https://bun.sh/docs/runtime/bunfig
 
 [test]
-preload = "./src/setup-tests.ts"
+preload = "./happydom.ts"
 
 [coverage]
 istanbul = { reporter = ["html", "text", "lcov"], directory = "./coverage" }

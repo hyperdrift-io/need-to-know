@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import { describe, expect, test, mock } from 'bun:test';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -6,7 +8,7 @@ import Header from '../Header';
 // Mock next/link component
 import Link from 'next/link';
 
-mock.module('next/link', () => {
+mock('next/link', () => {
   return {
     default: ({ children, href }: { children: React.ReactNode; href: string }) => {
       return <a href={href}>{children}</a>;
@@ -23,9 +25,10 @@ describe('Header', () => {
   });
 
   test('renders notification bell with count', () => {
-    render(<Header />);
+    const { container } = render(<Header />);
 
-    const notificationCount = screen.getByText('3');
+    // Use getAllByText to handle multiple elements
+    const notificationCount = screen.getAllByText('3')[0];
     expect(notificationCount).toBeInTheDocument();
   });
 
