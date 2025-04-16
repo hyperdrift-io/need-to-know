@@ -23,10 +23,10 @@ describe('Footer', () => {
     // Get the first matching element when there are multiple
     const n2Elements = screen.getAllByText('N2');
     expect(n2Elements.length).toBeGreaterThan(0);
-    
+
     const needToKnowElements = screen.getAllByText('NeedToKnow');
     expect(needToKnowElements.length).toBeGreaterThan(0);
-    
+
     expect(screen.getByText('Start informed. Stay ahead.')).toBeInTheDocument();
   });
 
@@ -59,7 +59,7 @@ describe('Footer', () => {
     const yearElements = Array.from(container.querySelectorAll('p')).filter(
       p => p.textContent?.includes(`© ${currentYear}`)
     );
-    
+
     expect(yearElements.length).toBeGreaterThan(0);
   });
 });

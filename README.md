@@ -1,62 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Need to Know
+
+**AI-powered news aggregator. Stay informed. Stay ahead.**
+
+Need to Know is a modern news aggregation platform that leverages AI to curate and summarize the most relevant news for you. Built with Next.js and powered by cutting-edge technologies, this application provides a seamless and personalized news reading experience.
+
+## Features
+
+- **AI-Powered Curation**: Get news tailored to your interests using advanced AI algorithms.
+- **Real-Time Updates**: Stay updated with the latest news as it happens.
+- **Personalized Feed**: Customize your news feed based on topics, sources, and preferences.
+- **Modern UI**: Enjoy a clean, intuitive interface built with shadcn/ui and Tailwind CSS.
+- **Responsive Design**: Access your news on any device, anywhere.
+
+## Tech Stack
+
+- **Frontend**: Next.js 15.3.0, React 19.0.0
+- **Styling**: Tailwind CSS, styled-components
+- **UI Components**: shadcn/ui, Radix UI
+- **State Management**: SWR for data fetching
+- **Icons**: Lucide React, FontAwesome
+- **Animations**: tw-animate-css
+- **Package Manager**: Bun
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (version 20 or higher)
+- Bun (latest version)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yannvr/needtoknow.git
+   cd needtoknow
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies using Bun:
+   ```bash
+   bun install
+   ```
 
-## Testing
+3. Start the development server:
+   ```bash
+   bun run dev
+   ```
 
-This project uses Bun's built-in test runner with React Testing Library for testing components and utilities.
+   The application will be available at `http://localhost:3000`.
 
-To run tests:
+## Usage
 
-```bash
-bun test
-```
+- Open your browser and navigate to `http://localhost:3000`.
+- Sign up or log in to personalize your news feed.
+- Explore trending news or customize your topics of interest.
+- Click on articles to read AI-generated summaries or view full content.
 
-To run tests in watch mode:
+## Development
 
-```bash
-bun test --watch
-```
+### Scripts
 
-To run tests with coverage:
+- **Development Server**: `bun run dev` - Starts the Next.js development server with Turbopack.
+- **Build**: `bun run build` - Creates a production build of the application.
+- **Start**: `bun run start` - Runs the production build.
+- **Lint**: `bun run lint` - Runs ESLint to check for code quality issues.
+- **Test**: `bun run test` - Runs the test suite.
+- **Test Watch**: `bun run test:watch` - Runs tests in watch mode.
+- **Test Coverage**: `bun run test:coverage` - Runs tests with coverage reporting.
 
-```bash
-bun test --coverage
-```
+### Contributing
 
-The coverage report will be generated in the `coverage` directory. You can open `coverage/index.html` in your browser to view a detailed coverage report.
+Contributions are welcome! Please follow these steps:
 
-The test files follow a naming convention of `*.test.ts` or `*.test.tsx` and are located next to the files they test in `__tests__` directories.
+1. Fork the repository.
+2. Create a new branch with a descriptive name related to your feature or fix.
+3. Make your changes and commit them following the [conventional commits](https://www.conventionalcommits.org/) format.
+4. Push your branch to your fork.
+5. Open a pull request with a detailed description of your changes.
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For questions or feedback, please open an issue on GitHub or contact the project maintainer.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ and AI for news enthusiasts everywhere.
