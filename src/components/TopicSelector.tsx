@@ -39,7 +39,7 @@ export default function TopicSelector({
         <h2 className="text-lg font-semibold">Find what matters</h2>
       </div>
 
-      <div className="flex gap-2">
+      <div className={`flex gap-2 relative ${!isPremium ? 'premium-blur' : ''}`}>
         <Select value={selectedTopic} onValueChange={onTopicChange}>
           <SelectTrigger className="bg-[var(--color-bg-card)] border-none text-white">
             <SelectValue placeholder="Select a topic" />
@@ -56,6 +56,18 @@ export default function TopicSelector({
         <Button className="bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]">
           Search
         </Button>
+
+        {!isPremium && (
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-[var(--color-bg-card)] bg-opacity-80 rounded-lg z-10">
+            <Button
+              size="sm"
+              className="bg-[var(--color-primary)] text-[var(--color-text-primary)] hover:bg-[var(--color-primary-hover)]"
+              onClick={() => window.location.href = '/login'}
+            >
+              Login to Use
+            </Button>
+          </div>
+        )}
       </div>
 
       {!isPremium && (

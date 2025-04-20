@@ -1,21 +1,86 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TopicSelector from '@/components/TopicSelector';
 import NewsCard from '@/components/NewsCard';
-import { newsByTopic } from '@/data/mockNews';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { NewsItem } from '@/components/NewsCard';
+import { authService } from '@/lib/supabase';
 
 export default function Home() {
   const [selectedTopic, setSelectedTopic] = useState('crypto');
-  const [isPremium] = useState(false); // In a real app, this would come from authentication
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
-  const newsItems = newsByTopic[selectedTopic] || [];
+  useEffect(() => {
+    // Check authentication status when component mounts
+    const checkAuthStatus = async () => {
+      const loggedIn = authService.isLoggedIn();
+      const premium = authService.isPremium();
+
+      setIsLoggedIn(loggedIn);
+      setIsPremium(premium);
+    };
+
+    checkAuthStatus();
+
+    // Fetch news for the selected topic
+    fetchNewsForTopic(selectedTopic);
+  }, [selectedTopic]);
+
+  // Helper function for development - toggle mock login status
+  const toggleMockLogin = () => {
+    if (isLoggedIn) {
+      authService.signOut();
+      setIsLoggedIn(false);
+      setIsPremium(false);
+      toast.success('Logged out successfully');
+    } else {
+      authService.mockLogin(true); // Set to true for premium
+      setIsLoggedIn(true);
+      setIsPremium(true);
+      toast.success('Logged in as premium user');
+    }
+  };
+
+  const fetchNewsForTopic = async (topic: string, refetch = false) => {
+    setIsLoading(true);
+    try {
+      const url = new URL('/api/news', window.location.origin);
+      url.searchParams.append('topic', topic);
+      if (refetch) {
+        url.searchParams.append('refetch', 'true');
+      }
+
+      const response = await fetch(url.toString());
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch news');
+      }
+
+      const data = await response.json();
+      setNewsItems(data.articles || []);
+      setLastUpdated(data.lastUpdated);
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      toast.error('Failed to load news. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRefresh = () => {
+    fetchNewsForTopic(selectedTopic, true);
+    toast.success('Refreshing news data...');
+  };
 
   const handleSave = () => {
     if (!isPremium) {
@@ -36,6 +101,12 @@ export default function Home() {
     toast.success('Sharing link copied to clipboard');
   };
 
+  const formatLastUpdated = () => {
+    if (!lastUpdated) return 'Never';
+    const date = new Date(lastUpdated);
+    return date.toLocaleTimeString();
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -44,6 +115,16 @@ export default function Home() {
         <section className="mb-8">
           <h1 className="text-3xl font-bold mb-2">NeedToKnow</h1>
           <p className="text-[var(--color-text-secondary)]">Start informed. Stay ahead.</p>
+
+          {/* Development toggle for login status - only visible in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <button
+              onClick={toggleMockLogin}
+              className="text-xs bg-[var(--color-primary)] text-white px-2 py-1 rounded mt-2"
+            >
+              {isLoggedIn ? 'Mock Logout' : 'Mock Login (Premium)'}
+            </button>
+          )}
         </section>
 
         <TopicSelector
@@ -56,20 +137,36 @@ export default function Home() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold">Today&apos;s Essential Updates</h2>
             <div className="text-xs text-[var(--color-text-secondary)]">
-              Last updated: {new Date().toLocaleTimeString()} •
-              <button className="ml-1 text-[var(--color-primary)]">Refresh</button>
+              Last updated: {formatLastUpdated()} •
+              <button
+                className="ml-1 text-[var(--color-primary)]"
+                onClick={handleRefresh}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Refreshing...' : 'Refresh'}
+              </button>
             </div>
           </div>
 
-          {newsItems.map((newsItem) => (
-            <NewsCard
-              key={newsItem.id}
-              news={newsItem}
-              isPremium={isPremium}
-              onSave={handleSave}
-              onShare={handleShare}
-            />
-          ))}
+          {isLoading ? (
+            <div className="text-center py-10">
+              <p>Loading news...</p>
+            </div>
+          ) : newsItems.length === 0 ? (
+            <div className="text-center py-10">
+              <p>No news available for this topic. Try another topic or refresh.</p>
+            </div>
+          ) : (
+            newsItems.map((newsItem) => (
+              <NewsCard
+                key={newsItem.id}
+                news={newsItem}
+                isPremium={isPremium}
+                onSave={handleSave}
+                onShare={handleShare}
+              />
+            ))
+          )}
 
           <div className="text-center mt-8">
             <Button variant="outline" className="text-[var(--color-text-secondary)] border-neutral-800 hover:bg-[var(--color-bg-card)] hover:text-[var(--color-text-primary)]">
