@@ -136,7 +136,7 @@ async function fetchNewsFromGrokAPI(topic: string, articleCount: number): Promis
 }
 
 function generateOptimizedPrompt(topic: string, articleCount: number): string {
-  return `Give the ${articleCount} most important recent news in ${topic} for professionals. For each article, provide: title, summary (1-2 sentences), impactScore (1-10), date, isTrending (true/false), source, meta (source, originLink), image (URL to a relevant article image), and premiumMetrics as an object with keys: MarketRelevance, SecurityImplications, RegulatoryImpact, InnovationScore, AdoptionPotential. Each premiumMetric should have only: score (0-100), note (short string). Respond as compact JSON: { articles: [...] }.`;
+  return `Give the ${articleCount} most important recent news in ${topic} for professionals. For each article, provide: title, summary (1-2 sentences), impactScore (1-10), date, source, meta (source, originLink), image (URL to a relevant article image), and premiumMetrics as an object with keys: MarketRelevance, SecurityImplications, RegulatoryImpact, InnovationScore, AdoptionPotential. Each premiumMetric should have only: score (0-100), note (short string). Respond as compact JSON: { articles: [...] }.`;
 }
 
 function formatGrokResponse(data: GrokResponseData, topic: string, articleCount: number): NewsSummaryResult {
