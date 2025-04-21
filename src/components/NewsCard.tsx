@@ -5,6 +5,7 @@ import { faBookmark, faShareNodes, faChartLine, faLock, faChevronDown, faChevron
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/DropdownMenu';
 import { Button } from './ui/Button';
 import Link from 'next/link';
+import { authService } from '@/lib/supabase';
 
 // Premium metrics related to industry impacts
 export interface PremiumMetric {
@@ -42,6 +43,11 @@ export default function NewsCard({
 }: NewsCardProps) {
   const { id, title, summary, impactScore, date, isTrending, source, premiumMetrics = [] } = news;
   const [showPremiumMetrics, setShowPremiumMetrics] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  React.useEffect(() => {
+    setIsLoggedIn(authService.isLoggedIn());
+  }, []);
 
   // Format a short date (e.g., "Jun 15")
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -57,6 +63,12 @@ export default function NewsCard({
     if (score >= 80) return 'text-green-500';
     if (score >= 50) return 'text-yellow-500';
     return 'text-red-500';
+  };
+
+  // Helper to generate Brave Search URL
+  const getBraveSearchUrl = (title: string) => {
+    const query = encodeURIComponent(title);
+    return `https://search.brave.com/search?q=${query}`;
   };
 
   return (
@@ -166,7 +178,26 @@ export default function NewsCard({
           <span>Relevance: High</span>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          {/* Brave Search CTA for logged-in users */}
+          {isLoggedIn && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-[var(--color-primary)] border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white"
+              asChild
+            >
+              <a
+                href={getBraveSearchUrl(title)}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="View Brave Search summary for this article"
+              >
+                Summary
+              </a>
+            </Button>
+          )}
+
           <div className="relative">
             <Button
               variant="ghost"

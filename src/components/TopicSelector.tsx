@@ -2,7 +2,7 @@ import React from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/Select';
 import { Button } from './ui/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faLock } from '@fortawesome/free-solid-svg-icons';
 
 type TopicSelectorProps = {
   selectedTopic: string;
@@ -28,9 +28,6 @@ export default function TopicSelector({
     { value: 'dao', label: 'DAOs' },
   ];
 
-  const allTopics = isPremium
-    ? [...topics, ...premiumTopics]
-    : topics;
 
   return (
     <div className="bg-[var(--color-bg-card)] p-4 rounded-lg mb-6">
@@ -39,15 +36,26 @@ export default function TopicSelector({
         <h2 className="text-lg font-semibold">Find what matters</h2>
       </div>
 
-      <div className={`flex gap-2 relative ${!isPremium ? 'premium-blur' : ''}`}>
+      <div className="flex gap-2 relative">
         <Select value={selectedTopic} onValueChange={onTopicChange}>
           <SelectTrigger className="bg-[var(--color-bg-card)] border-none text-white">
             <SelectValue placeholder="Select a topic" />
           </SelectTrigger>
           <SelectContent className="bg-[var(--color-bg-card)] border-none text-white">
-            {allTopics.map((topic) => (
+            {topics.map((topic) => (
               <SelectItem key={topic.value} value={topic.value}>
                 {topic.label}
+              </SelectItem>
+            ))}
+            {premiumTopics.map((topic) => (
+              <SelectItem
+                key={topic.value}
+                value={topic.value}
+                disabled={!isPremium}
+                className={!isPremium ? 'opacity-50 flex items-center gap-2' : ''}
+              >
+                {topic.label}
+                {!isPremium && <FontAwesomeIcon icon={faLock} className="ml-2 text-xs text-[var(--color-primary)]" title="Premium" />}
               </SelectItem>
             ))}
           </SelectContent>
@@ -56,18 +64,6 @@ export default function TopicSelector({
         <Button className="bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]">
           Search
         </Button>
-
-        {!isPremium && (
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-[var(--color-bg-card)] bg-opacity-80 rounded-lg z-10">
-            <Button
-              size="sm"
-              className="bg-[var(--color-primary)] text-[var(--color-text-primary)] hover:bg-[var(--color-primary-hover)]"
-              onClick={() => window.location.href = '/login'}
-            >
-              Login to Use
-            </Button>
-          </div>
-        )}
       </div>
 
       {!isPremium && (
