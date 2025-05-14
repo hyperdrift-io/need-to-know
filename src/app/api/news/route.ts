@@ -89,7 +89,7 @@ async function fetchNewsFromGrokAPI(topic: string, articleCount: number): Promis
       'Authorization': `Bearer ${GROK_API_KEY}`
     },
     body: JSON.stringify({
-      model: 'grok-3-beta',
+      model: 'grok-3-mini-beta',
       messages: [
         {
           role: 'system',

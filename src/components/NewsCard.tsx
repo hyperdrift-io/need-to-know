@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faShareNodes, faChartLine, faLock, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faShareNodes, faChartLine, faLock, faChevronDown, faChevronUp, faCompass } from '@fortawesome/free-solid-svg-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/DropdownMenu';
 import { Button } from './ui/Button';
 import Link from 'next/link';
@@ -179,21 +179,22 @@ export default function NewsCard({
         </div>
 
         <div className="flex gap-2 items-center">
-          {/* Brave Search CTA for logged-in users */}
+          {/* Brave Search CTA as icon for logged-in users */}
           {isLoggedIn && (
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="text-[var(--color-primary)] border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white"
+              className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
               asChild
             >
               <a
                 href={getBraveSearchUrl(title)}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="View Brave Search summary for this article"
+                title="Open Brave Search summary in a new tab"
+                aria-label="Brave Summary"
               >
-                Summary
+                <FontAwesomeIcon icon={faCompass} />
               </a>
             </Button>
           )}
